@@ -4,7 +4,7 @@ backend/dbcbackend/.idea/
 backend/dbcbackend/target
 # Log file
 *.log
-
+backend/dbcbackend/dbcbackend.iml
 # BlueJ files
 *.ctxt
 

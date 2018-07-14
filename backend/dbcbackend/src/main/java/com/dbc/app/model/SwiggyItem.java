@@ -6,16 +6,17 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "items")
+@Table(name = "swiggy_items")
 @Getter @Setter
-public class Items {
+@Deprecated
+public class SwiggyItem {
 
     /**
      * IDENTITY is used for SQL servers.
      * AUTO is used for MySQL servers.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long itemId;
     private String dishFamily;
