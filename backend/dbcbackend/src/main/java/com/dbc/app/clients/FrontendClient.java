@@ -27,7 +27,7 @@ public class FrontendClient {
         String baseUrl = environment.getProperty("frontend.host");
         log.info("Frontend base URL {}", baseUrl);
 
-        String path = "/notifications";
+        String path = "/hyperapp-46652/us-central1/api/notifications";
         log.info("Frontend client path {}", path);
 
         String url = baseUrl + path;
@@ -37,7 +37,7 @@ public class FrontendClient {
         Map<String, Object> options = new HashMap<>();
         options.put("body", "New " + order.getFoodType() + " from " + Optional.ofNullable(order.getRestaurant())
                 .map(Restaurant::getName)
-                .orElse("unknown restaurant"));
+                .orElse("unknown restaurantName"));
         options.put("data", Collections.singletonMap("id", 2));
         frontendRequest.put("options", options);
 

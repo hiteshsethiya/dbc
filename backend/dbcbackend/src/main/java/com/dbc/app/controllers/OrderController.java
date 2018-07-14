@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -31,6 +32,12 @@ public class OrderController {
                 .orElseGet(() -> new ResponseEntity<>(
                         new ErrorDetails(Calendar.getInstance().getTime(), "Order Not Found", HttpStatus.NOT_FOUND.toString()),
                         HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/orders/")
+    public @ResponseBody
+    ResponseEntity<List<Order>> getOrders() {
+        return new ResponseEntity<>(this.orderService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/orders", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })

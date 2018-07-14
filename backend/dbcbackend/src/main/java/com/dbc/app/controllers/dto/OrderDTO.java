@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter @Setter @ToString
 public class OrderDTO {
 
-    private String restaurant;
+    @JsonProperty("restaurant") private String restaurantName;
     private String foodType;
 
     private String userName = "Anuj";

@@ -1,5 +1,8 @@
 package com.dbc.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
 
     @Id
@@ -33,16 +37,26 @@ public class Order {
     //person - for whom?
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    @JsonIgnore private User user;
+    @JsonProperty("username") private String getUsername() {
+        return this.getUser()!=null? this.getUser().getName() : "Unknown user";
+    }
 
     @OneToOne
     @JoinColumn(name = "ordered_for_id", referencedColumnName = "id")
-    private User orderedFor;
+    @JsonIgnore private User orderFor;
+    @JsonProperty("orderedFor") private String getOrderedFor() {
+        return this.getOrderFor() != null? this.getOrderFor().getName() : "Anuj";
+    }
 
     //from?
     @OneToOne
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    private Restaurant restaurant;
+    @JsonIgnore private Restaurant restaurant;
+    @JsonProperty("restaurant") private String getRestaurantName() {
+        return this.getRestaurant() != null? this.getRestaurant().getName() : "Unknown";
+    }
+
 
     //instructions
     private String note;

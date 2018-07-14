@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,13 +29,18 @@ public class OrderService {
         }
     }
 
+    public List<Order> findAll() {
+
+        return (List<Order>) this.ordersRepository.findAll();
+    }
+
     public Optional<Order> getById(Long orderId) {
         return this.ordersRepository.getById(orderId);
     }
 
     @Transactional
     public Order getOrderFrom(OrderDTO orderDTO) {
-        String restaurantName = orderDTO.getRestaurant();
+        String restaurantName = orderDTO.getRestaurantName();
 
         User user = null;
         String userName = orderDTO.getUserName();
