@@ -32,22 +32,13 @@ class Client {
   }
 
   orders(id) {
-    if(id) {
-      return fetch(this.apiUrl + `/orders/${id}`, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
-      }).then(response => response.json());
-    } else {
-      return fetch(this.apiUrl + `/orders`, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        }
-      }).then(response => response.json());
-    }
+    return fetch(this.apiUrl + `/orders`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }).then(response => response.json());
   }
 }
 
-export default new Client("http://172.16.120.130:8080/", firebaseUrl);
+export default new Client("http://172.16.120.130:8080", firebaseUrl);

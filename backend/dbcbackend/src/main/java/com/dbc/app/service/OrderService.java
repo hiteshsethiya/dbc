@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -22,6 +24,8 @@ public class OrderService {
 
     public void save(Order order) throws Exception {
         try {
+            order.setCreatedAt(Calendar.getInstance().getTime());
+            order.setUpdatedAt(Calendar.getInstance().getTime());
             ordersRepository.save(order);
         }
         catch (Exception ex) {
@@ -30,8 +34,10 @@ public class OrderService {
     }
 
     public List<Order> findAll() {
-
-        return (List<Order>) this.ordersRepository.findAll();
+        return ((List<Order>) this.ordersRepository.findAll())
+                .stream()
+                .sorted((o1, o2) -> o2.getCreatedAt().compareTo(o1.getCreatedAt()))
+                .collect(Collectors.toList());
     }
 
     public Optional<Order> getById(Long orderId) {

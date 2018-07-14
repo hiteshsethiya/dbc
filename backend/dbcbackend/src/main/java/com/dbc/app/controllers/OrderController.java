@@ -34,7 +34,7 @@ public class OrderController {
                         HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/orders/")
+    @GetMapping("/orders")
     public @ResponseBody
     ResponseEntity<List<Order>> getOrders() {
         return new ResponseEntity<>(this.orderService.findAll(), HttpStatus.OK);

@@ -61,4 +61,7 @@ public class Order {
     //instructions
     private String note;
 
+    private Date createdAt;
+    private Date updatedAt;
+
 }
