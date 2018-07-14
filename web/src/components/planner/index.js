@@ -67,7 +67,7 @@ export default _ => ({
     addToPlan: props => (state, actions) => {
       const { selected } = state;
       const data = {
-        "swiggyCustomerId": "16534144",
+        "swiggyCustomerId": "1",
         "dayPlans": [{
           "day": selected.day,
           "plans": [

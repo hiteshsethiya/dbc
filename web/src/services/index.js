@@ -17,7 +17,7 @@ class Client {
   }
 
   createPlan(data) {
-    return fetch(this.apiUrl + "plan/week/", {
+    return fetch(this.apiUrl + "/plan/week/", {
       body: JSON.stringify(data),
       method: "POST",
       headers: {
@@ -27,8 +27,8 @@ class Client {
     })
   }
 
-  fetchPlanner(id = "16534144") {
-    return fetch(this.apiUrl + `plan/week/${id}`).then(response => response.json())
+  fetchPlanner(id = "1") {
+    return fetch(this.apiUrl + `/plan/week/${id}`).then(response => response.json())
   }
 
   recommendations() {
@@ -56,4 +56,4 @@ class Client {
   }
 }
 
-export default new Client("http://172.16.120.130:8080", firebaseUrl);
+export default new Client("http://172.16.120.140:8080", firebaseUrl);
