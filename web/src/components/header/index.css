@@ -1,0 +1,39 @@
+.header {
+  // background-color: whitesmoke;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  .header-logo {
+    // display: inline-block;
+    font-size: 16px;
+    margin: 8px;
+  }
+  .header-links {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+    .header-link {
+      transition: .2s all;
+      display: inline-block;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-bottom: 1px solid transparent;
+      .header-link-text {
+        transition: .2s all;
+        color: black;
+      }
+      &.selected {
+        border-bottom: 1px solid black;
+        .header-link-text {
+          color: black;
+          font-weight: bold;
+        }
+      }
+      &:hover {
+        .header-link-text {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -11,9 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -28,5 +28,11 @@ public class PlanController {
         log.info("Saving Week plan " + new ObjectMapper().writeValueAsString(weekPlan));
         userPlanService.savePlan(weekPlan);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/plan/week/{cust_id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody
+    ResponseEntity<WeekPlan> get(@PathVariable("cust_id") String swiggyCustomerid) throws UniqueConstraintViolationException, IOException {
+        return new ResponseEntity<>(userPlanService.getWeekPlan(swiggyCustomerid), HttpStatus.OK);
     }
 }

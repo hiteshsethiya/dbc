@@ -19,4 +19,6 @@ public class UserPlan {
 
     @Column(columnDefinition = "TEXT")
     private String weekPlan;
+
+    public UserPlan() {}
 }
