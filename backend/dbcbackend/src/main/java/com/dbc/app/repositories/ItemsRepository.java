@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface ItemsRepository extends CrudRepository<Item,Long> {
     Item findByItemId(Long itemId);
+    List<Item> findByDishFamily(String name);
 }

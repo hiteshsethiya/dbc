@@ -39,8 +39,8 @@ public class ItemService {
 
     public List<Item> getItems(List<Long> itemIds) {
         String queryStr = "SELECT NEW com.dbc.app.model.Item(" +
-                "item.id, item.itemId, item.dishFamily, item.name, item.category, item.cuisine, item.imageUrl) " +
-                "FROM Item AS item where item.itemId in :inclList";
+                "items.id, items.itemId, items.dishFamily, items.name, items.category, items.cuisine, items.imageUrl) " +
+                "FROM Item AS items where items.itemId in :inclList";
         TypedQuery<Item> query = em.createQuery(queryStr, Item.class);
         query.setParameter("inclList", itemIds);
         return query.getResultList();

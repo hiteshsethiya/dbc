@@ -45,7 +45,11 @@ public class OrderController {
     ResponseEntity saveItems(@RequestBody OrderDTO orderDTO) throws Exception {
         try{
             log.info("QUOTES K SAATH? {}", orderDTO);
+            if(orderDTO == null) new ResponseEntity<>(
+                    new ErrorDetails(Calendar.getInstance().getTime(), "Empty Request", HttpStatus.BAD_REQUEST.toString()),
+                    HttpStatus.BAD_REQUEST);
             Order order = this.orderService.getOrderFrom(orderDTO);
+            log.info("Order finally is {}", order);
             this.orderService.save(order);
             try {
                 this.frontendClient.sendNotification(order);

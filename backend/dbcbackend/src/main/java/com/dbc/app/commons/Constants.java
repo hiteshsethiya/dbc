@@ -6,7 +6,8 @@ public class Constants {
         BREAKFAST,
         LUNCH,
         DINNER,
-        MY_FAV
+        MY_FAV,
+        SNACKS
     }
 
     public enum Days {

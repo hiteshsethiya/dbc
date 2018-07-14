@@ -3,17 +3,21 @@ package com.dbc.app.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "orders")
 @Getter @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Order {
 
     @Id
@@ -22,13 +26,15 @@ public class Order {
 
     //type
     public enum Type { BREAKFAST, LUNCH, SNACKS, DINNER }
+    public static List<Integer> timings = Lists.newArrayList(6, 13, 16, 21);
+
     @Enumerated(EnumType.STRING)
     @Column(name = "order_type") private Type foodType;
 
     //what
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "order_items", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })
-    private Set<Item> item;
+    private Set<Item> items;
 
     //when
     @Temporal(TemporalType.TIMESTAMP)

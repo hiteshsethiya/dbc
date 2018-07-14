@@ -25,7 +25,7 @@ public class DateDeserializer extends JsonDeserializer<Date> {
             incoming.setTime(dateFormat.parse(dateAsString));
 
             Calendar today = Calendar.getInstance();
-            today.set(Calendar.HOUR, incoming.get(Calendar.HOUR));
+            today.set(Calendar.HOUR_OF_DAY, incoming.get(Calendar.HOUR_OF_DAY));
             today.set(Calendar.MINUTE, incoming.get(Calendar.MINUTE));
             today.set(Calendar.SECOND, incoming.get(Calendar.SECOND));
             return today.getTime();
