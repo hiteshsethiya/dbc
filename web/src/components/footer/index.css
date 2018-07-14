@@ -1,0 +1,26 @@
+.footer-container {
+  margin: 16px 8px; 
+  .footer {
+    display: flex;
+    justify-content: center; 
+    flex-direction: column;
+    .footer-heading{
+      align-self: center;
+    }
+    .footer-links {
+      display: flex;
+      list-style: none;
+      align-self: center;
+      margin: 0;
+      padding: 0;
+      .footer-link{
+        margin: 0 4px; 
+        padding: 8px;
+        a{
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+  }
+}
