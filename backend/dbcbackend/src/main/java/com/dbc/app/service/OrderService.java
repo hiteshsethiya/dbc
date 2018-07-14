@@ -101,7 +101,7 @@ public class OrderService {
 
         Set<Item> items = Sets.newHashSet();
         if(orderDTO.getItem() == null) {
-            WeekPlan weekPlan = this.userPlanService.getWeekPlan("16534144");
+            WeekPlan weekPlan = this.userPlanService.getWeekPlan(user.getId().toString());
             Calendar deliverCal = Calendar.getInstance();
             deliverCal.setTime(orderDTO.getDeliverAt());
             items = weekPlan.getDayPlans().stream().filter(dayPlan -> {
