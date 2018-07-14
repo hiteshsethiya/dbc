@@ -38,7 +38,7 @@ public class FrontendClient {
         options.put("body", "New " + order.getFoodType() + " from " + Optional.ofNullable(order.getRestaurant())
                 .map(Restaurant::getName)
                 .orElse("unknown restaurantName"));
-        options.put("data", Collections.singletonMap("id", 2));
+        options.put("data", Collections.singletonMap("id", order.getId()));
         frontendRequest.put("options", options);
 
         log.info("The request being made is {}", frontendRequest);
