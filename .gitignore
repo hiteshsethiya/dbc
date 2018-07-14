@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
-
+backend/dbcbackend/.idea/
+backend/dbcbackend/target
 # Log file
 *.log
 
