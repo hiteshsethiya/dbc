@@ -4,7 +4,7 @@
       .day {
         .day-name {
           font-weight: 500;
-          padding-bottom: 4px;
+          padding: 4px 0;
           border-bottom: 1px solid #eee;
         }
         .plans {
@@ -61,7 +61,7 @@
     transition: 0.5s;
     background-color: rgba(0, 0, 0, 0);
     &.open {
-      background-color: rgba(0, 0, 0, .2);
+      background-color: rgba(0, 0, 0, .5);
       width: 100%;
       height: 100%;
       position: absolute;
@@ -71,6 +71,9 @@
         width: 400px;
       }
     }
+    .no-items {
+      text-align: center;
+    }
     .sidenav {
       height: 100%;
       width: 0;
@@ -78,23 +81,27 @@
       z-index: 1;
       top: 0;
       right: 0;
-      background-color: #111;
+      background-color: #eee;
       overflow-x: hidden;
-      transition: 0.5s;
-      // padding-top: 30px;
-      .heading{
-        color: #f1f1f1;
+      transition: 0.5s; // padding-top: 30px;
+      .heading {
+        // color: #f1f1f1;
+        border-bottom: 1px solid #aaa;
+        margin-top: 8px;
         padding: 8px;
       }
-      a {
-        padding: 8px 8px 8px 32px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-        transition: 0.3s;
-        &:hover {
-          color: #f1f1f1;
+      .list-items {
+        padding: 0;
+        display: flex;
+        list-style: none;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        .list-item {
+          flex: 46%;
+          display: flex;
+          justify-content: center;
+          padding: 8px;
         }
       }
       .closebtn {

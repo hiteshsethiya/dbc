@@ -3,14 +3,14 @@ import { Link } from "@hyperapp/router";
 
 /* styles */
 import style from './index.css';
-// {
-//   text: 'ABOUT US',
-//   to: '/about-us',
-//   selected: false
-// }
+
 export default _ => ({
   state: {
     headerLinks: [{
+      text: 'Orders',
+      to: '/orders',
+      selected: false
+    }, {
       text: 'Plan My Subscription',
       to: '/',
       selected: false

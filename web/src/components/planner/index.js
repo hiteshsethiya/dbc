@@ -3,11 +3,14 @@ import { h } from "hyperapp";
 import Day from './day';
 import Menu from './menu';
 
+import Services from './../../services';
+
 import styles from './index.css';
 
 export default _ => ({
   state: {
     sideNavVisible: false,
+    menuItems: [],
     selected: {
       day: null,
       type: null
@@ -55,6 +58,10 @@ export default _ => ({
     }
   },
   actions: {
+    fetchMenuItems: props => (state, actions) => {
+      return Services.menuItems.then(actions.assignMenuItems.bind(actions));
+    },
+    assignMenuItems: menuItems => state => ({ menuItems }),
     toggleSideNav: event => state => {
       if (event.target.dataset && event.target.dataset.action === 'toggle')
         return ({ sideNavVisible: !state.sideNavVisible })
@@ -72,7 +79,7 @@ export default _ => ({
   },
   view: props => ({ planner: state }, { planner: actions }) => {
     return (
-      <div className="planner-container">
+      <div className="planner-container" oncreate={actions.fetchMenuItems}>
         <div className="week">
           <div className="days">
             {
@@ -85,7 +92,7 @@ export default _ => ({
           </div>
         </div>
         <Menu
-          items={[]}
+          items={state.menuItems}
           selected={state.selected}
           show={state.sideNavVisible}
           toggleSideNav={actions.toggleSideNav.bind(actions)} />
