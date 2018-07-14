@@ -1,5 +1,6 @@
 package com.dbc.app.controllers;
 
+import com.dbc.app.clients.FrontendClient;
 import com.dbc.app.controllers.dto.OrderDTO;
 import com.dbc.app.controllers.error.ErrorDetails;
 import com.dbc.app.model.Order;
@@ -19,6 +20,7 @@ import java.util.Calendar;
 public class OrderController {
 
     @Autowired private OrderService orderService;
+    @Autowired private FrontendClient frontendClient;
 
     @GetMapping("/orders/{id}")
     public @ResponseBody
@@ -38,6 +40,11 @@ public class OrderController {
             log.info("QUOTES K SAATH? {}", orderDTO);
             Order order = this.orderService.getOrderFrom(orderDTO);
             this.orderService.save(order);
+            try {
+                this.frontendClient.sendNotification(order);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return new ResponseEntity(HttpStatus.CREATED);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -46,4 +53,5 @@ public class OrderController {
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
