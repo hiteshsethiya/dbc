@@ -7,6 +7,7 @@ import SW from "./components/service-worker";
 /* components */
 import Header from "./components/header";
 import Footer from "./components/footer";
+import Planner from "./components/planner";
 import Home from "./pages/home";
 
 /* style */
@@ -15,19 +16,22 @@ import style from "./index.css";
 const modules = {
   Header: Header(),
   Home: Home(),
-  Footer: Footer()
+  Footer: Footer(),
+  Planner: Planner()
 };
 
 const Root = {
   state: {
     location: location.state,
     header: modules.Header.state,
-    home: modules.Home.state
+    home: modules.Home.state,
+    planner: modules.Planner.state
   },
   actions: {
     location: location.actions,
     header: modules.Header.actions,
-    home: modules.Home.actions
+    home: modules.Home.actions,
+    planner: modules.Planner.actions
   },
   view: (state, actions) => {
     const Header = modules.Header.view;
@@ -46,4 +50,4 @@ const Root = {
 }
 const appElem = document.getElementById('app');
 const main = app(Root.state, Root.actions, Root.view, appElem);
-const unsubscribe = location.subscribe(main.location)
+const unsubscribe = location.subscribe(main.location);
