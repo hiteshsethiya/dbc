@@ -19,7 +19,7 @@ public class DateDeserializer extends JsonDeserializer<Date> {
     public Date deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
         String dateAsString = jsonParser.getText();
         log.info("Date from Android is {}", dateAsString);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("H:m:s");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
         try {
             Calendar incoming = Calendar.getInstance();
             incoming.setTime(dateFormat.parse(dateAsString));
