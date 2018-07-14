@@ -19,6 +19,7 @@ public class Plan {
     private Constants.MealType mealType;
     private List<Long> itemIds;
     private List<Item> menuItems;
+    private String deliverAt;
 
     public Plan() {}
 
@@ -26,5 +27,6 @@ public class Plan {
         this.mealType = mealType;
         this.itemIds = new ArrayList<>();
         this.menuItems = new ArrayList<>();
+        this.deliverAt = "";
     }
 }

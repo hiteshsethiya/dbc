@@ -43,19 +43,36 @@ public class UserPlanService {
 
     public WeekPlan getWeekPlan(String swiggyCustomerId) throws IOException {
         UserPlan userPlan = userPlanRepository.findUserPlanBySwiggyCustomerId(swiggyCustomerId);
+
+        WeekPlan weekPlan = createDefaultWeekPlan(swiggyCustomerId);
         if(userPlan == null) {
-            return createDefaultWeekPlan(swiggyCustomerId);
+            return weekPlan;
         }
 
-        WeekPlan weekPlan = deSerialiseWeekPlan(userPlan.getWeekPlan());
+        WeekPlan dbWeekPlan = deSerialiseWeekPlan(userPlan.getWeekPlan());
 
-        weekPlan.getDayPlans().forEach(dayPlan -> {
-            dayPlan.getPlans().forEach(plan -> {
-                List<Item> itemList = itemService.getItems(plan.getItemIds());
-                plan.setMenuItems(itemList);
-                plan.getItemIds().clear();
-            });
-        });
+        for(DayPlan dayPlan : dbWeekPlan.getDayPlans()) {
+            for(DayPlan defDayPlan : weekPlan.getDayPlans()) {
+
+                if(dayPlan.getDay() == defDayPlan.getDay()) {
+
+                    for(int i = 0; i < dayPlan.getPlans().size(); ++i) {
+                        Plan plan = dayPlan.getPlans().get(i);
+
+                        Plan defPlan = defDayPlan.getPlans().get(i);
+
+                        if(defPlan.getMealType() == plan.getMealType()) {
+
+                            List<Item> itemList = itemService.getItems(plan.getItemIds());
+                            plan.setMenuItems(itemList);
+                            plan.getItemIds().clear();
+
+                            defDayPlan.getPlans().set(i, plan);
+                        }
+                    }
+                }
+            }
+        }
 
         return weekPlan;
     }
