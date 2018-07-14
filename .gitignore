@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+backend/dbcbackend/.idea/workspace.xml
+*.idea
+.idea/*
 # Log file
 *.log
 
