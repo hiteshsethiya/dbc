@@ -1,0 +1,116 @@
+.planner-container {
+  .week {
+    .days {
+      .day {
+        .day-name {
+          font-weight: 500;
+          padding: 4px 0;
+          border-bottom: 1px solid #eee;
+        }
+        .plans {
+          padding-top: 8px;
+          display: flex;
+          justify-items: start;
+          flex-wrap: wrap;
+          .plan {
+            transition: .5s all;
+            position: relative;
+            min-height: 100px;
+            cursor: pointer;
+            padding: 8px;
+            border: 1px solid #eee;
+            padding: 10px;
+            flex: 22%;
+            margin: 8px;
+            .plan-name {
+              font-size: 12px;
+            }
+            .plan-items {
+              display: flex;
+              padding: 8px 0;
+              .plan-item {
+                margin-right: 4px;
+                .plan-item-name {
+                  font-size: 8px;
+                }
+              }
+            }
+            &:hover {
+              transform: scale(1.05);
+            }
+            .add-button {
+              width: 100%;
+              height: 100%;
+              &:after {
+                content: "+";
+                font-size: 100px;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                right: 0;
+                margin-left: -30px;
+                color: #eee;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .sidenav-container {
+    transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0);
+    &.open {
+      background-color: rgba(0, 0, 0, .5);
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      .sidenav {
+        width: 400px;
+      }
+    }
+    .no-items {
+      text-align: center;
+    }
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #eee;
+      overflow-x: hidden;
+      transition: 0.5s; // padding-top: 30px;
+      .heading {
+        // color: #f1f1f1;
+        border-bottom: 1px solid #aaa;
+        margin-top: 8px;
+        padding: 8px;
+      }
+      .list-items {
+        padding: 0;
+        display: flex;
+        list-style: none;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+        .list-item {
+          flex: 46%;
+          display: flex;
+          justify-content: center;
+          padding: 8px;
+        }
+      }
+      .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+    }
+  }
+}

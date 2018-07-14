@@ -20,7 +20,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "husky": "^1.0.0-rc.9"
+    "husky": "^1.0.0-rc.9",
+    "mui": "0.0.1"
   },
   "devDependencies": {
     "@hyperapp/router": "^0.7.0",
