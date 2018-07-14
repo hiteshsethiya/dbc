@@ -1,28 +1,29 @@
 import { h } from "hyperapp";
 
 export default ({ day, onSelect }) => {
+  console.log(day);
   return (
-    <div className="day" key={day.name}>
-      <div className="day-name">{day.name}</div>
+    <div className="day" key={day.day}>
+      <div className="day-name">{day.day}</div>
       <div className="plans">
         {
-          day.plan.map(planItem => {
+          day.plans.map(planItem => {
             return (
-              <div className="plan" key={planItem.type}>
-                <div className="plan-name">{planItem.type}</div>
+              <div className="plan" key={planItem.mealType}>
+                <div className="plan-name">{planItem.mealType}</div>
                 {
-                  planItem.items && planItem.items.length ? < div className="plan-items">
+                  planItem.menuItems && planItem.menuItems.length ? < div className="plan-items">
                     {
-                      planItem.items.map(item => {
+                      planItem.menuItems.map(item => {
                         return (
                           <div className="plan-item" key={item.id}>
-                            <img src={item.image} alt={item.name} />
+                            <img src='//via.placeholder.com/50x50' alt={item.id} />
                             <div className="plan-item-name">{item.name}</div>
                           </div>
                         )
                       })
                     }
-                  </div> : <div className="add-button" onclick={onSelect.bind(null, { day: day.name, type: planItem.type })} data-action="toggle"></div>
+                  </div> : <div className="add-button" onclick={onSelect.bind(null, { day: day.day, type: planItem.mealType })} data-action="toggle"></div>
                 }
               </div>
             )

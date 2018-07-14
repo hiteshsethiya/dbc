@@ -13,49 +13,24 @@ export default _ => ({
     menuItems: [],
     selected: {
       day: null,
-      type: null
+      type: null,
+      items: []
     },
-    days: [{
-      name: "Monday",
-      plan: [{
-        type: 'BREAKFAST',
-        items: [{
-          id: 1,
-          name: 'Item 1',
-          image: '//via.placeholder.com/50X50'
+    dayPlans: [{
+      "day": "MONDAY",
+      "plans": [
+        {
+          "mealType": "BREAKFAST",
+          "itemIds": [],
+          "menuItems": []
         }, {
-          id: 2,
-          name: 'Item 2',
-          image: '//via.placeholder.com/50X50'
-        }]
-      }, {
-        type: 'LUNCH',
-        items: [],
-      }, {
-        type: 'SNACKS',
-        items: [],
-      }, {
-        type: 'DINNER',
-        items: [],
-      }]
-    }, {
-      name: "Tuesday",
-      plan: [{
-        type: 'BREAKFAST',
-        items: []
-      }, {
-        type: 'LUNCH',
-        items: [],
-      }, {
-        type: 'MY_FAV',
-        items: [],
-      }]
-    }],
-    recommendations: {
-      "BREAKFAST": [],
-      "LUNCH": [],
-      "MY_FAV": []
+          "mealType": "LUNCH",
+          "itemIds": [],
+          "menuItems": []
+        }
+      ]
     }
+    ]
   },
   actions: {
     fetchMenuItems: props => (state, actions) => {
@@ -71,19 +46,60 @@ export default _ => ({
       return ({
         selected: {
           day: props.day,
-          type: props.type
+          type: props.type,
+          items: []
         },
         sideNavVisible: !state.sideNavVisible
       })
+    },
+    onMenuItemSelect: props => state => {
+      console.log("[menu item] add", props.itemId);
+      let items = state.selected.items;
+      if (items.includes(props.itemId)) {
+        items = items.filter(itemId => itemId !== props.itemId);
+      } else {
+        items.push(props.itemId)
+      }
+      return ({
+        selected: Object.assign({}, state.selected, { items })
+      })
+    },
+    addToPlan: props => (state, actions) => {
+      const { selected } = state;
+      const data = {
+        "swiggyCustomerId": "16534144",
+        "dayPlans": [{
+          "day": selected.day,
+          "plans": [
+            {
+              "mealType": selected.type,
+              "itemIds": selected.items
+            }
+          ]
+        }]
+      }
+      return Services.createPlan(data)
+        .then(actions.fetchPlanner.bind(actions))
+        .then(actions.onSelect.bind(actions));
+    },
+    assignPlanner: ({ dayPlans }) => state => {
+      return ({ dayPlans })
+    },
+    fetchPlanner: props => (state, actions) => {
+      return Services.fetchPlanner().then(actions.assignPlanner.bind(actions));
+    },
+    init: props => (state, actions) => {
+      actions.fetchMenuItems();
+      actions.fetchPlanner();
     }
   },
   view: props => ({ planner: state }, { planner: actions }) => {
     return (
-      <div className="planner-container" oncreate={actions.fetchMenuItems}>
+      <div className="planner-container" oncreate={actions.init}>
         <div className="week">
           <div className="days">
             {
-              state.days.map(day => {
+              state.dayPlans.map(day => {
                 return (
                   <Day day={day} onSelect={actions.onSelect} />
                 )
@@ -95,6 +111,8 @@ export default _ => ({
           items={state.menuItems}
           selected={state.selected}
           show={state.sideNavVisible}
+          onSelect={actions.onMenuItemSelect}
+          addToPlan={actions.addToPlan}
           toggleSideNav={actions.toggleSideNav.bind(actions)} />
       </div>
     )

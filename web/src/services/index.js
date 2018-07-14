@@ -16,6 +16,21 @@ class Client {
     }).then(response => response.json())
   }
 
+  createPlan(data) {
+    return fetch(this.apiUrl + "plan/week/", {
+      body: JSON.stringify(data),
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+
+  fetchPlanner(id = "16534144") {
+    return fetch(this.apiUrl + `plan/week/${id}`).then(response => response.json())
+  }
+
   recommendations() {
     return fetch(this.apiUrl + "/recommendations/").then(response => response.json())
   }

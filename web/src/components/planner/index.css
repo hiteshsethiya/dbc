@@ -21,6 +21,7 @@
             border: 1px solid #eee;
             padding: 10px;
             flex: 22%;
+            flex-grow: 0;
             margin: 8px;
             .plan-name {
               font-size: 12px;
@@ -84,24 +85,67 @@
       background-color: #eee;
       overflow-x: hidden;
       transition: 0.5s; // padding-top: 30px;
+      .footer {
+        position: relative;
+        .add-to-plan-btn {
+          background-color: green;
+          padding: 16px;
+          color: white;
+          text-align: center;
+          position: fixed;
+          bottom: 0;
+          width: 400px;
+          cursor: pointer;
+        }
+      }
       .heading {
         // color: #f1f1f1;
         border-bottom: 1px solid #aaa;
         margin-top: 8px;
         padding: 8px;
       }
-      .list-items {
-        padding: 0;
-        display: flex;
-        list-style: none;
-        justify-content: start;
-        align-items: center;
-        flex-wrap: wrap;
-        .list-item {
-          flex: 46%;
-          display: flex;
-          justify-content: center;
-          padding: 8px;
+      .list {
+        padding-bottom: 40px;
+        .list-items {
+          padding: 0;
+          list-style: none;
+          .list-item {
+            font-size: 14px;
+            padding: 8px;
+            .list-item-heading {
+              // border-bottom: 1px solid #aaa;
+              font-size: 16px;
+              margin-bottom: 4px;
+              &:before {
+                content: "• "
+              }
+            }
+            .list-category-items {
+              list-style: none;
+              padding: 0;
+              display: flex;
+              justify-content: start;
+              flex-direction: row;
+              align-items: center;
+              flex-wrap: wrap;
+              .list-category-item {
+                transition: .5s all;
+                display: flex;
+                flex: 43%;
+                margin: 4px;
+                justify-content: center;
+                border: 1px solid #aaa;
+                padding: 8px;
+                cursor: pointer;
+                &.selected {
+                  background-color: rgba(0, 0, 0, .5)
+                }
+                &:hover {
+                  transform: scale(1.05);
+                }
+              }
+            }
+          }
         }
       }
       .closebtn {
