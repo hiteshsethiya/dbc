@@ -17,9 +17,9 @@ public class Order {
     private Long id;
 
     //type
-    private enum Type { BREAKFAST, LUNCH, SNACKS, DINNER }
+    public enum Type { BREAKFAST, LUNCH, SNACKS, DINNER }
     @Enumerated(EnumType.STRING)
-    private Type orderType;
+    @Column(name = "order_type") private Type foodType;
 
     //what
     @OneToMany(cascade = CascadeType.ALL)
