@@ -142,6 +142,7 @@
                 transition: .5s all;
                 display: flex;
                 flex: 43%;
+                flex-grow: 0;
                 margin: 4px;
                 justify-content: center;
                 border: 1px solid #aaa;
