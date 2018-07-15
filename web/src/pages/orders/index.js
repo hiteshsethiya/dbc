@@ -52,17 +52,17 @@ export default _ => ({
     return (
       <div className="orders" key={'demo'} oncreate={actions.fetchOrder.bind(actions, { id })}>
         {
-          state.ordersToDisplay.length ? state.ordersToDisplay.map(order => {
+          state.ordersToDisplay.length ? state.ordersToDisplay.map((order, i) => {
             return (
-              <div className="order" key={order.id}>
+              <div className="order" key={i}>
                 <div className="restaurant">{order.foodType} <span className="small"> from</span> {order.restaurant}</div>
                 <div className="orderedFor"><span className="small"> For </span>{order.username}</div>
                 <div className="deliverOn"><span className="small"> Delivered on </span> {getDate(order.deliverOn)}</div>
                 <div className="note"><span className="small"> Notes: </span>{order.note ? <div className="note-field">{order.note}</div> : null}</div>
                 <div className="plan-items">
                   {
-                    order.items.map(item => {
-                      return <div className="plan-item" key={item.id}>
+                    order.items.map((item, itemI) => {
+                      return <div className="plan-item" key={itemI}>
                         <img src='//via.placeholder.com/50x50' alt={item.id} />
                         <div className="plan-item-name">{item.name}</div>
                       </div>
@@ -74,7 +74,7 @@ export default _ => ({
           }) : null
         }
         {
-          latestOrder ? <div className="latest-order" key={latestOrder.id} oncreate={actions.disappear.bind(actions, locationAction)}>
+          latestOrder !== null ? <div className="latest-order" key={latestOrder.id} oncreate={actions.disappear.bind(actions, locationAction)}>
             <div className="order" key={latestOrder.id}>
               <div className="restaurant">{latestOrder.foodType} <span className="small"> from</span> {latestOrder.restaurant}</div>
               <div className="orderedFor"><span className="small"> For </span>{latestOrder.username}</div>
