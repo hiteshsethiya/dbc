@@ -53,17 +53,18 @@ export default _ => ({
       <div className="orders" key={'demo'} oncreate={actions.fetchOrder.bind(actions, { id })}>
         {
           state.ordersToDisplay.length ? state.ordersToDisplay.map((order, i) => {
+            const [date, time] = order.deliverOn.toString().split(" ");
             return (
               <div className="order" key={i}>
                 <div className="restaurant">{order.foodType} <span className="small"> from</span> {order.restaurant}</div>
                 <div className="orderedFor"><span className="small"> For </span>{order.username}</div>
-                <div className="deliverOn"><span className="small"> Delivered on </span> {getDate(order.deliverOn)}</div>
+                <div className="deliverOn"><span className="small"> Delivery Date: </span>{date} <span className="small">Time: </span>{time}</div>
                 <div className="note"><span className="small"> Notes: </span>{order.note ? <div className="note-field">{order.note}</div> : null}</div>
                 <div className="plan-items">
                   {
                     order.items.map((item, itemI) => {
                       return <div className="plan-item" key={itemI}>
-                        <img src={item.imageUrl} alt={item.id} className="plan-item-image"/>
+                        <img src={item.imageUrl} alt={item.id} className="plan-item-image" />
                         <div className="plan-item-name">{item.name}</div>
                       </div>
                     })
@@ -78,7 +79,7 @@ export default _ => ({
             <div className="order" key={latestOrder.id}>
               <div className="restaurant">{latestOrder.foodType} <span className="small"> from</span> {latestOrder.restaurant}</div>
               <div className="orderedFor"><span className="small"> For </span>{latestOrder.username}</div>
-              <div className="deliverOn"><span className="small"> Delivered on </span> {getDate(latestOrder.deliverOn)}</div>
+              <div className="deliverOn"><span className="small"> Delivered on </span> {latestOrder.deliverOn}</div>
               <div className="note"><span className="small"> Notes: </span>{latestOrder.note ? <div className="note-field">{latestOrder.note}</div> : null}</div>
             </div>
           </div> : null
