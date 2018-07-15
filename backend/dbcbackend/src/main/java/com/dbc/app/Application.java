@@ -15,7 +15,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.TimeZone;
 
 @Slf4j
 @SpringBootApplication
@@ -23,5 +26,11 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);
+    }
+
+    @PostConstruct
+    public void init(){
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Calcutta"));
+        System.out.println("Spring boot application running in IST timezone :"+ new Date());
     }
 }
