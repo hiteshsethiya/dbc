@@ -17,7 +17,7 @@ public class OrderDTO {
     @JsonProperty("restaurant") private String restaurantName;
     private String foodType;
 
-    private String userName = "Anuj";
+    private String userName = "Hrishikesh";
     @JsonDeserialize(using = DateDeserializer.class) private Date deliverAt;
     private String note;
     private String item;

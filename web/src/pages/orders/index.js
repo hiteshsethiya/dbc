@@ -40,9 +40,9 @@ export default _ => ({
         locationAction.go('/orders');
         actions.assignOrders({
           id: null,
-          ordersToDisplay: state.orders
+          orders: state.orders
         });
-      }, 12000);
+      }, 5000);
 
     }
   },

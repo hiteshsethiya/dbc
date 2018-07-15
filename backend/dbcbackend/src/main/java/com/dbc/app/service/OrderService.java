@@ -44,6 +44,7 @@ public class OrderService {
             ordersRepository.save(order);
         }
         catch (Exception ex) {
+            ex.printStackTrace();
             throw new Exception("Failed to create order");
         }
     }
@@ -73,6 +74,8 @@ public class OrderService {
         Restaurant restaurant = null;
         if(restaurantName != null) {
             restaurant = this.restaurantsRepository.getByName(restaurantName).orElse(null);
+        } else {
+            restaurant = this.restaurantsRepository.getById(1l).get();
         }
 
         if(orderDTO.getDeliverAt() == null) {
@@ -110,7 +113,7 @@ public class OrderService {
             }).map(dayPlan -> {
                 return dayPlan.getPlans().stream().filter(plan -> plan.getMealType().toString().toLowerCase()
                         .equals(orderDTO.getFoodType().toLowerCase()))
-                        .findFirst().map(d -> d.getMenuItems().get(0)).orElse(null);
+                        .findFirst().map(d -> d.getMenuItems().size()>0? d.getMenuItems().get(0): null).orElse(null);
             }).filter(Objects::nonNull).collect(Collectors.toSet());
         } else {
             List<Item> allItems = this.itemsRepository.findByDishFamily(orderDTO.getItem());

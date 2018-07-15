@@ -8,7 +8,7 @@ self.addEventListener('notificationclick', (event) => {
     console.log('[Service Worker] Notification click Received.', event);
     event.notification.close();
     event.waitUntil(
-      clients.openWindow(`${event.target.location.origin}/orders/${event.notification.data.id}`)
+      clients.openWindow(`localhost:8082/orders/${event.notification.data.id}`)
     );
   } catch (e) {
     console.error('[Service Worker]', e.message);

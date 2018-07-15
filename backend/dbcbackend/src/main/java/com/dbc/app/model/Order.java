@@ -33,7 +33,7 @@ public class Order {
     @Column(name = "order_type") private Type foodType;
 
     //what
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinTable(name = "order_items", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = { @JoinColumn(name = "item_id") })
     private Set<Item> items;
 

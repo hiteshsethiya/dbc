@@ -37,7 +37,7 @@ public class FrontendClient {
         Map<String, Object> options = new HashMap<>();
         options.put("body", "New " + order.getFoodType() + " from " + Optional.ofNullable(order.getRestaurant())
                 .map(Restaurant::getName)
-                .orElse("unknown restaurantName"));
+                .orElse("KFC"));
         options.put("data", Collections.singletonMap("id", order.getId()));
         frontendRequest.put("options", options);
 
