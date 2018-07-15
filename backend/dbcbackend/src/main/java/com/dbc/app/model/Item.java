@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "items")
@@ -32,4 +33,5 @@ public class Item {
         this.cuisine = cuisine;
         this.imageUrl = imageUrl;
     }
+
 }

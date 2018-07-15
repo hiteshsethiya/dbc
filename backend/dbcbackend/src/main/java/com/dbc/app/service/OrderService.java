@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 @Service @Slf4j
@@ -75,7 +76,8 @@ public class OrderService {
         if(restaurantName != null) {
             restaurant = this.restaurantsRepository.getByName(restaurantName).orElse(null);
         } else {
-            restaurant = this.restaurantsRepository.getById(1l).get();
+            int random = ThreadLocalRandom.current().nextInt(1, 5);
+            restaurant = this.restaurantsRepository.getById((long) random).get();
         }
 
         if(orderDTO.getDeliverAt() == null) {
