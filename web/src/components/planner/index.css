@@ -145,11 +145,12 @@
                 flex-grow: 0;
                 margin: 4px;
                 justify-content: center;
-                border: 1px solid #aaa;
+                box-shadow: 1px 3px 5px #ccc;
                 padding: 8px;
                 cursor: pointer;
                 &.selected {
-                  background-color: rgba(0, 0, 0, .5)
+                  color: white;
+                  background-color: rgba(5, 208, 49, 0.5);
                 }
                 &:hover {
                   transform: scale(1.05);
