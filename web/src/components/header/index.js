@@ -29,7 +29,7 @@ export default _ => ({
     return (
       <div class="header container" oncreate={actions.selectTab.bind(actions, location.pathname)}>
         <div className="header-logo">
-          <a href="/" className="text">DBC</a>
+          <a href="/" className="text">Swiggy Swag</a>
         </div>
         <ul class="header-links">
           {state.headerLinks.map(link => {
