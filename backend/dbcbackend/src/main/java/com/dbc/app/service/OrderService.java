@@ -11,6 +11,7 @@ import com.dbc.app.repositories.ItemsRepository;
 import com.dbc.app.repositories.OrdersRepository;
 import com.dbc.app.repositories.RestaurantsRepository;
 import com.dbc.app.repositories.UsersRepository;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -66,10 +67,13 @@ public class OrderService {
         log.info("Order DTO {}", orderDTO);
         String restaurantName = orderDTO.getRestaurantName();
 
-        User user = null;
-        String userName = orderDTO.getUserName();
+        User orderedForUser = null;
+        User loggedInUser = null;
+        String userName = orderDTO.getOrderedFor();
+        String loggedInUserName = orderDTO.getUserName();
         if(userName != null) {
-            user = this.usersRepository.getByName(userName).orElse(null);
+            orderedForUser = this.usersRepository.getByName(userName).orElse(null);
+            loggedInUser = this.usersRepository.getByName(loggedInUserName).orElse(null);
         }
 
         Restaurant restaurant = null;
@@ -84,7 +88,7 @@ public class OrderService {
             if(orderDTO.getFoodType() != null) {
                 int typeIndex = Order.Type.valueOf(orderDTO.getFoodType().toUpperCase()).ordinal();
                 int hourOfDay = Order.timings.get(typeIndex);
-                log.info("housr of {}", hourOfDay);
+                log.info("hours of {}", hourOfDay);
                 Calendar now = Calendar.getInstance();
                 now.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 orderDTO.setDeliverAt(now.getTime());
@@ -106,7 +110,7 @@ public class OrderService {
 
         Set<Item> items = Sets.newHashSet();
         if(orderDTO.getItem() == null) {
-            WeekPlan weekPlan = this.userPlanService.getWeekPlan(user.getId().toString());
+            WeekPlan weekPlan = this.userPlanService.getWeekPlan(orderedForUser.getId().toString());
             Calendar deliverCal = Calendar.getInstance();
             deliverCal.setTime(orderDTO.getDeliverAt());
             items = weekPlan.getDayPlans().stream().filter(dayPlan -> {
@@ -118,8 +122,10 @@ public class OrderService {
                         .findFirst().map(d -> d.getMenuItems().size()>0? d.getMenuItems().get(0): null).orElse(null);
             }).filter(Objects::nonNull).collect(Collectors.toSet());
         } else {
-            List<Item> allItems = this.itemsRepository.findByDishFamily(orderDTO.getItem());
-            if(allItems!=null && !allItems.isEmpty()) {
+            List<Item> allItems = Lists.newArrayList();
+            allItems.addAll(this.itemsRepository.findByDishFamily(orderDTO.getItem()));
+            allItems.addAll(this.itemsRepository.findByName(orderDTO.getItem()));
+            if(!allItems.isEmpty()) {
                 items.add(allItems.get(0));
             }
         }
@@ -127,7 +133,8 @@ public class OrderService {
         log.info("After processing {}", orderDTO);
         Order order = new Order();
         order.setRestaurant(restaurant);
-        order.setUser(user);
+        order.setUser(loggedInUser);
+        order.setOrderFor(orderedForUser);
         order.setDeliverOn(orderDTO.getDeliverAt());
         order.setNote(orderDTO.getNote());
         order.setItems(items);

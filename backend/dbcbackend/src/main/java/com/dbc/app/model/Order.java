@@ -47,14 +47,14 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore private User user;
     @JsonProperty("username") private String getUsername() {
-        return this.getUser()!=null? this.getUser().getName() : "Unknown user";
+        return this.getUser()!=null? this.getUser().getName() : "Hrishikesh";
     }
 
     @OneToOne
     @JoinColumn(name = "ordered_for_id", referencedColumnName = "id")
     @JsonIgnore private User orderFor;
     @JsonProperty("orderedFor") private String getOrderedFor() {
-        return this.getOrderFor() != null? this.getOrderFor().getName() : "Anuj";
+        return this.getOrderFor() != null? this.getOrderFor().getName() : this.getUsername();
     }
 
     //from?

@@ -57,7 +57,7 @@ export default _ => ({
             return (
               <div className="order" key={i}>
                 <div className="restaurant">{order.foodType} <span className="small"> from</span> {order.restaurant}</div>
-                <div className="orderedFor"><span className="small"> For </span>{order.username}</div>
+                <div className="orderedFor"><span className="small"> For </span>{order.orderedFor}</div>
                 <div className="deliverOn"><span className="small"> Delivery Date: </span>{date} <span className="small">Time: </span>{time}</div>
                 <div className="note"><span className="small"> Notes: </span>{order.note ? <div className="note-field">{order.note}</div> : null}</div>
                 <div className="plan-items">
@@ -79,7 +79,7 @@ export default _ => ({
             <div className="order" key={latestOrder.id}>
               <div className="order-text">New Order!</div>
               <div className="restaurant">{latestOrder.foodType} <span className="small"> from</span> {latestOrder.restaurant}</div>
-              <div className="orderedFor"><span className="small"> For </span>{latestOrder.username}</div>
+              <div className="orderedFor"><span className="small"> For </span>{latestOrder.orderedFor}</div>
               <div className="deliverOn"><span className="small"> Delivery Date: </span>{latestOrder.deliverOn.toString().split(" ")[0]} <span className="small">Time: </span>{latestOrder.deliverOn.toString().split(" ")[1]}</div>
               <div className="note"><span className="small"> Notes: </span>{latestOrder.note ? <div className="note-field">{latestOrder.note}</div> : null}</div>
             </div>
