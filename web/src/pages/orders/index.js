@@ -18,7 +18,7 @@ export default _ => ({
   state: {
     orders: [],
     ordersToDisplay: [],
-    latestOrder: null,
+    latestOrder: null
   },
   actions: {
     fetchOrder: props => (state, actions) => {
@@ -77,9 +77,10 @@ export default _ => ({
         {
           latestOrder !== null ? <div className="latest-order" key={latestOrder.id} oncreate={actions.disappear.bind(actions, locationAction)}>
             <div className="order" key={latestOrder.id}>
+              <div className="order-text">New Order!</div>
               <div className="restaurant">{latestOrder.foodType} <span className="small"> from</span> {latestOrder.restaurant}</div>
               <div className="orderedFor"><span className="small"> For </span>{latestOrder.username}</div>
-              <div className="deliverOn"><span className="small"> Delivered on </span> {latestOrder.deliverOn}</div>
+              <div className="deliverOn"><span className="small"> Delivery Date: </span>{latestOrder.deliverOn.toString().split(" ")[0]} <span className="small">Time: </span>{latestOrder.deliverOn.toString().split(" ")[1]}</div>
               <div className="note"><span className="small"> Notes: </span>{latestOrder.note ? <div className="note-field">{latestOrder.note}</div> : null}</div>
             </div>
           </div> : null

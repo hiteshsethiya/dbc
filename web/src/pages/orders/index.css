@@ -12,8 +12,7 @@
       .note-field {
         background-color: #eee;
         padding: 8px 16px;
-        display: inline-block;
-        // width: 90%;
+        display: inline-block; // width: 90%;
         border-radius: 5px;
       }
     }
@@ -21,11 +20,10 @@
       display: flex;
       padding: 8px 0;
       .plan-item {
-        margin-right: 4px;
-        // border: 1px solid #eee;
+        margin-right: 4px; // border: 1px solid #eee;
         box-shadow: 1px 3px 5px #eee;
         padding: 4px;
-        .plan-item-image{
+        .plan-item-image {
           width: 150px;
           height: 125px;
         }
@@ -38,13 +36,20 @@
   .latest-order {
     position: fixed;
     top: 50px;
-    right: 50px; // padding: 16px;
+    right: 50px;
     width: 400px;
-    z-index: 100;
+    z-index: 100; 
     background-color: #eee;
     border: 1px solid #fff;
     border-radius: 5px;
     .order {
+      box-shadow: 1px 3px 5px #eee;
+      margin: 0;
+      .order-text {
+        border-bottom: 1px dashed #aaa;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+      }
       padding: 8px;
     }
   }
