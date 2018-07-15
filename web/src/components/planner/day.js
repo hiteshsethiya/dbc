@@ -17,7 +17,7 @@ export default ({ day, onSelect }) => {
                       planItem.menuItems.map(item => {
                         return (
                           <div className="plan-item" key={item.id}>
-                            <img src='//via.placeholder.com/50x50' alt={item.id} />
+                            <img src={item.imageUrl} className="plan-item-image" alt={item.id} />
                             <div className="plan-item-name">{item.name}</div>
                           </div>
                         )

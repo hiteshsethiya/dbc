@@ -63,7 +63,7 @@ export default _ => ({
                   {
                     order.items.map((item, itemI) => {
                       return <div className="plan-item" key={itemI}>
-                        <img src='//via.placeholder.com/50x50' alt={item.id} />
+                        <img src={item.imageUrl} alt={item.id} className="plan-item-image"/>
                         <div className="plan-item-name">{item.name}</div>
                       </div>
                     })

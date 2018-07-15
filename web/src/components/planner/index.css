@@ -18,7 +18,8 @@
             min-height: 100px;
             cursor: pointer;
             padding: 8px;
-            border: 1px solid #eee;
+            // border: 1px solid #eee;
+            box-shadow: 1px 3px 5px #eee;
             padding: 10px;
             flex: 22%;
             flex-grow: 0;
@@ -31,8 +32,17 @@
               padding: 8px 0;
               .plan-item {
                 margin-right: 4px;
+                text-align: center;
+                // border: 1px solid #eee;
+                box-shadow: 1px 3px 5px #eee;
+                padding: 4px;
+                .plan-item-image {
+                  width: 60px;
+                  height: 45px;
+                  border: 1px solid #eee;
+                }
                 .plan-item-name {
-                  font-size: 8px;
+                  font-size: 12px;
                 }
               }
             }
