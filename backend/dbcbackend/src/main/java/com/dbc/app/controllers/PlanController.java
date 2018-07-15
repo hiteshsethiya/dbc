@@ -24,7 +24,7 @@ public class PlanController {
 
     @PostMapping(value = "/plan/week", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody
-    ResponseEntity save(@RequestBody WeekPlan weekPlan) throws UniqueConstraintViolationException, JsonProcessingException {
+    ResponseEntity save(@RequestBody WeekPlan weekPlan) throws UniqueConstraintViolationException, IOException {
         log.info("Saving Week plan " + new ObjectMapper().writeValueAsString(weekPlan));
         userPlanService.savePlan(weekPlan);
         return new ResponseEntity(HttpStatus.OK);

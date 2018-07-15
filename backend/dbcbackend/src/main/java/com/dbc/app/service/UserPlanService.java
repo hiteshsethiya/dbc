@@ -27,54 +27,81 @@ public class UserPlanService {
     @Autowired
     private ItemService itemService;
 
-    public void savePlan(WeekPlan weekPlan) throws JsonProcessingException {
+    public void savePlan(WeekPlan weekPlan) throws IOException {
+
+        WeekPlan parentPlan = createDefaultWeekPlan(weekPlan.getSwiggyCustomerId());
 
         UserPlan userPlan = userPlanRepository.findUserPlanBySwiggyCustomerId(weekPlan.getSwiggyCustomerId());
 
         if(userPlan == null) {
             userPlan = new UserPlan();
             userPlan.setSwiggyCustomerId(weekPlan.getSwiggyCustomerId());
+        } else {
+            WeekPlan dbWeekPlan = deSerialiseWeekPlan(userPlan.getWeekPlan());
+            merge(parentPlan, dbWeekPlan);
         }
 
-        userPlan.setWeekPlan(serialiseWeekPlan(weekPlan));
+        merge(parentPlan, weekPlan);
+
+        userPlan.setWeekPlan(serialiseWeekPlan(parentPlan));
 
         userPlanRepository.save(userPlan);
+    }
+
+    private void merge(WeekPlan parent, WeekPlan child) {
+
+        for(DayPlan pDayPlan : parent.getDayPlans()) {
+
+            for(DayPlan cDayPlan : child.getDayPlans()) {
+
+                if(pDayPlan.getDay() == cDayPlan.getDay()) {
+
+                    mergePlan(pDayPlan.getPlans(), cDayPlan.getPlans());
+                    break;
+                }
+            }
+        }
+    }
+
+    private void mergePlan(List<Plan> parentPlan, List<Plan> childPlan) {
+
+        for(int i = 0; i < parentPlan.size(); ++i) {
+
+            Plan pPlan = parentPlan.get(i);
+
+            for(Plan cPlan : childPlan) {
+
+                if(pPlan.getMealType() == cPlan.getMealType()) {
+
+                    parentPlan.set(i, cPlan);
+                    break;
+                }
+            }
+
+        }
     }
 
     public WeekPlan getWeekPlan(String swiggyCustomerId) throws IOException {
         UserPlan userPlan = userPlanRepository.findUserPlanBySwiggyCustomerId(swiggyCustomerId);
 
-        WeekPlan weekPlan = createDefaultWeekPlan(swiggyCustomerId);
         if(userPlan == null) {
-            return weekPlan;
+            return createDefaultWeekPlan(swiggyCustomerId);
         }
 
         WeekPlan dbWeekPlan = deSerialiseWeekPlan(userPlan.getWeekPlan());
 
-        for(DayPlan dayPlan : dbWeekPlan.getDayPlans()) {
-            for(DayPlan defDayPlan : weekPlan.getDayPlans()) {
-
-                if(dayPlan.getDay() == defDayPlan.getDay()) {
-
-                    for(int i = 0; i < dayPlan.getPlans().size(); ++i) {
-                        Plan plan = dayPlan.getPlans().get(i);
-
-                        Plan defPlan = defDayPlan.getPlans().get(i);
-
-                        if(defPlan.getMealType() == plan.getMealType()) {
-
-                            List<Item> itemList = itemService.getItems(plan.getItemIds());
-                            plan.setMenuItems(itemList);
-                            plan.getItemIds().clear();
-
-                            defDayPlan.getPlans().set(i, plan);
-                        }
-                    }
+        for(int i = 0; i < dbWeekPlan.getDayPlans().size(); ++i) {
+            DayPlan dayPlan = dbWeekPlan.getDayPlans().get(i);
+            for(Plan plan : dayPlan.getPlans()) {
+                if(!plan.getItemIds().isEmpty()) {
+                    List<Item> itemList = itemService.getItems(plan.getItemIds());
+                    plan.setMenuItems(itemList);
+                    plan.getItemIds().clear();
                 }
             }
         }
 
-        return weekPlan;
+        return dbWeekPlan;
     }
 
     private WeekPlan createDefaultWeekPlan(String swiggyCustomerId) {
